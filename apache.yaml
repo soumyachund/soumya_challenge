@@ -1,0 +1,14 @@
+---
+- hosts: webservers
+  tasks:
+    - name: Install apache
+      yum:
+        name: httpd
+        state: latest
+      become: true
+
+    - name: Copy index html
+      template: src=index.html.j2 dest=/var/www/html/index.html
+
+    - name: Start and enable apache service
+      service: name=httpd state=started enabled=yes
